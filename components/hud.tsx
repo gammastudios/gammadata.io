@@ -86,6 +86,49 @@ const animatedPanelVariants = {
   },
 };
 
+// export const AnimatedPanel = ({
+//   title,
+//   children,
+//   expanded = true,
+//   toggleable = true,
+//   actions,
+// }: {
+//   title?: string;
+//   children?: ReactNode;
+//   expanded?: boolean;
+//   toggleable?: boolean;
+//   actions?: ReactNodeArray;
+// }) => {
+//   const [open, setOpen] = useState(expanded);
+
+//   return (
+//     <motion.div variants={animatedPanelVariants}>
+//       <Panel>
+//         <PanelLegend>
+//           {toggleable && (
+//             <>
+//               <PanelLegendExpandButton
+//                 onClick={() => {
+//                   setOpen(!open);
+//                   open ? closePanel() : openPanel();
+//                 }}
+//               >
+//                 [{open ? "-" : "+"}]
+//               </PanelLegendExpandButton>
+//             </>
+//           )}
+//           {title}
+//         </PanelLegend>
+//         {children}
+//         {actions && actions.length > 0 && children && <br />}
+//         <ActionButtonList open={open}>
+//           <AnimatePresence>{open && actions}</AnimatePresence>
+//         </ActionButtonList>
+//       </Panel>
+//     </motion.div>
+//   );
+// };
+
 export const AnimatedPanel = ({
   title,
   children,
@@ -119,11 +162,17 @@ export const AnimatedPanel = ({
           )}
           {title}
         </PanelLegend>
-        {children}
-        {actions && actions.length > 0 && children && <br />}
-        <ActionButtonList open={open}>
-          <AnimatePresence>{open && actions}</AnimatePresence>
-        </ActionButtonList>
+        <AnimatePresence>
+          {open && (
+            <>
+              {children}
+              {actions && actions.length > 0 && children && <br />}
+              <ActionButtonList open={open}>
+                {actions}
+              </ActionButtonList>
+            </>
+          )}
+        </AnimatePresence>
       </Panel>
     </motion.div>
   );

@@ -1,11 +1,14 @@
 import { data } from '../content/content';
-import Link from "next/link";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+
 import { animated, useSpring } from "@react-spring/three";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import type { NextPage } from "next";
 import Head from "next/head";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { ReactNode, Suspense, useEffect, useState } from "react";
 import Effects from "../components/Effects";
 import {
   ActionButton,
@@ -29,7 +32,7 @@ const Main = styled("main", {
   length: 0
 });
 
-const VersionTag = styled("div", {
+const FooterTag = styled("div", {
   position: "fixed",
   right: "$2",
   bottom: "$2",
@@ -288,12 +291,14 @@ const Maximised = styled("div", {
 const Home: NextPage = () => {
   const showBg = true;
 
+  const router = useRouter();
+
   const [view, setView] = useState<"initial" | "active" | "maximised">(
     "initial"
   );
-  const { scale } = useSpring({
-    scale: view === "initial" ? 0.1 : 1,
-  });
+  const AnimatedGroup = animated.group;
+  const scaleValue = view === "initial" ? [0.1, 0.1, 0.1] : [1, 1, 1];
+  const props = useSpring({ scale: scaleValue });
 
   return (
     <div className={styles.container}>
@@ -321,13 +326,13 @@ const Home: NextPage = () => {
               <pointLight position={[30, 0, 0]} color="blue" intensity={10} />
               <pointLight position={[0, -30, 0]} color="pink" intensity={5} />
               <pointLight position={[0, 0, 30]} color="purple" intensity={5} />
-              <animated.group scale={scale}>
+              <AnimatedGroup {...props}>
                 <Ribbon id={1} color="#7b505c" />
                 <Ribbon id={64} color="#E8AE3B" />
                 <Ribbon id={256} color="#E8AE3B" />
                 <Ribbon id={512} color="#E8AE3B" />
                 <Ribbon id={128} color="#e4d6cf" />
-              </animated.group>
+              </AnimatedGroup>
               <Effects />
             </Suspense>
             <OrbitControls
@@ -338,13 +343,12 @@ const Home: NextPage = () => {
         )}
       </Main>
 
-      <VersionTag>
+      <FooterTag>
         <Text>
-          gammadata.io
-          {" " + pkg.version + " "}
-          <a href="https://forms.gle/UbdTJndFVoKihuQeA" >π</a>
+        {data.index.footer.name}<br />
+        {data.index.footer.abn}
         </Text>
-      </VersionTag>
+      </FooterTag>
       <HudGrid className="hud">
         {view === "maximised" && (
           <Maximised layout={{ "@initial": "small", "@bp2": "large" }}>
@@ -379,8 +383,8 @@ const Home: NextPage = () => {
             <Padding layout="md">
               <PanelList>
                 <Panel title="BF.WTF">
-                  <Text>Welcome to Gamma Data .</Text>
-                  <Text><br/>We Build Data Platforms for the Enterprise</Text>
+                  <Text>{data.index.greetings.headline}</Text>
+                  <Text><br/>{data.index.greetings.byline}</Text>
                   <br />
                   <ActionButton
                     onActivate={() => {
@@ -403,9 +407,9 @@ const Home: NextPage = () => {
         {view === "active" && (
           <>
             <Visibility visiblity={{ "@initial": "hidden", "@bp4": "visible" }}>
-              <PlayWithArtPrompt>
+              {/* <PlayWithArtPrompt>
                 <Text>click + drag + scroll</Text>
-              </PlayWithArtPrompt>
+              </PlayWithArtPrompt> */}
             </Visibility>
             <Overlay
               layout={{
@@ -417,29 +421,18 @@ const Home: NextPage = () => {
             >
               <Padding layout="md" className="special">
                 <PanelList>
-                  <AnimatedPanel title="Welcome">
-                    <Text>
-                      Hi, you&apos;ve landed on Gamma Data&apos;s page.
-                      <br/> <br/>
-                      We are Data Specialists for the Cloud, located in
-                      Melbourne, Australia. We spend most of our time 
-                      thinking about, and working on:
-                    </Text>  
-                      <ul>
-                        <li>strategic platform oversight</li>
-                        <li>building out data-centric infrastructure</li>
-                        <li>modelling your data for lightning-fast reports</li>
-                        <li>software &amp; process architecture</li>
-                        <li>staff augmentation &amp; department review</li>
-                        <li>learning and education</li>
-                      </ul>
+                  <AnimatedPanel title="About Us">
+                    <Text dangerouslySetInnerHTML={{ __html: data.index.sections.aboutus.text }} />
                   </AnimatedPanel>
 
                   <AnimatedPanel
-                    title="Work"
+                    title="Our Services"
                     actions={[
                       <ActionButton
-                        onActivate={() => visit("https://www.linkedin.com/company/gamma-data/", 300)}
+                        // onActivate={() => visit("https://www.linkedin.com/company/gamma-data/", 300)}
+                        onActivate={() => {
+                          router.push('/contactus');
+                        }}                        
                         index={3}
                         key={3}
                         activationKey="C"
@@ -448,7 +441,7 @@ const Home: NextPage = () => {
                       </ActionButton>,
                       <ActionButton
                         onActivate={() =>
-                          visit("https://github.com/gamma-data", 300)
+                          visit("https://github.com/gammastudios", 300)
                         }
                         index={4}
                         key={4}
@@ -466,36 +459,7 @@ const Home: NextPage = () => {
                       </ActionButton>,
                     ]}
                   >
-                    <Text>
-                      The Gamma Data team is open to all types of data-driven work.
-                    </Text>
-                    <br />
-                    <Text>
-                      If you&apos;re looking for someone to bring your Data strategy vision
-                      to life, then do reach out.
-                    </Text>
-                    <br />
-                    <Text>
-                      We are experts in:
-                    </Text>  
-                      <ul>
-                        <li><b>☁️ Cloud, especially Google Cloud. </b> <br /> 
-                           Our team can help with green 
-                           field cloud projects, hybrid or multi-cloud implementations, 
-                           or migrations between major cloud providers.</li>
-                        <li><b>📊 Data.</b> <br /> 
-                           Delivering end to end data solutions including channel solutions, 
-                           reporting systems and advanced analytics applications.</li>
-                        <li><b> 🏗️ Engineering. </b>  <br />
-                           From automating infrastructure, platform and 
-                           application deployment to test automation to continuous security and compliance, 
-                           we can help you build a world class platform, data and machine 
-                           learning engineering capability and culture.</li>
-                        <li> <b> 🚆Training.</b> <br /> 
-                           We are one of two agencies in Australia that can boast a Google Developer Expert
-                           <i> and </i> authorised Google Trainer for your organisation
-                        </li>
-                      </ul>
+                    <Text dangerouslySetInnerHTML={{ __html: data.index.sections.services.text }} />
                   </AnimatedPanel>
                   <AnimatedPanel
                     title="Our Blog"
@@ -552,7 +516,7 @@ const Home: NextPage = () => {
                     </Text>
 
                   </AnimatedPanel>
-                  <AnimatedPanel
+                  {/* <AnimatedPanel
                     title="Explore Mode"
                     toggleable={false}
                     actions={[
@@ -567,7 +531,7 @@ const Home: NextPage = () => {
                         maximise art
                       </ActionButton>,
                     ]}
-                  ></AnimatedPanel>
+                  ></AnimatedPanel> */}
                 </PanelList>
               </Padding>
             </Overlay>
