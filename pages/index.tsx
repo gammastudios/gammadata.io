@@ -161,76 +161,88 @@ const visit = (url: string, delay: number = 0) => {
   }
 };
 
-const DesktopOnly = () => {
-  return (
-    <Padding layout="md">
-      <PanelList>
-        <AnimatedPanel
-          title="Case Studies"
-          expanded
-          actions={[]}
-        >            
-            <h2>Australia Post</h2>
-            --- <br />
-          <Text>
-            Migrating Teradata to Google Cloud and BigQuery
-          </Text>
-          <ul>
-            <li>dbt</li>
-            <li>bigquery</li>
-            <li>BKEY and BMAP migration</li>
-            <li>Looker Enterprise Rollout</li>
-          </ul>
-            <a href="https://notion.ai" target="_blank" rel="noreferrer">
-              <h2>Notion.ai</h2>
-            </a>
-            --- <br />
-          <Text>   
-            Generate unique insights into the world's largest content database
-          </Text>
-          <ul>
-            <li>Google Kubernetes Engine</li>
-            <li>Cloud Spanner</li>
-          </ul>
-          <h2>Government agency</h2>
-          <Text>
-            --- <br />
-            Strategic Data Platform on BigQuery 
-          </Text>
-          <ul>
-            <li>dbt</li>
-            <li>prefect.io</li>
-            <li>gitlab</li>
-            <li>salesforce</li>
-          </ul>
-        </AnimatedPanel>
+// Define types for view data
+interface View {
+  section: string | null;
+  toggleable: boolean;
+  expanded: boolean;
+}
 
-        <AnimatedPanel
-          title="View Source"
-          toggleable={false}
-          actions={[
-            <ActionButton
-              onActivate={() =>
-                visit("https://github.com/TomKlimovski/bf-3/blob/main/pages/index.tsx", 300)
-              }
-              index={0}
-              key={0}
-              activationKey="Q"
-            >
-              view code
-            </ActionButton>,
-          ]}
-        >
-          <Text>
-            View the code for this site on github, it&apos;s built with react,
-            next.js, stitchesjs, react-three-fiber, react-spring, framer-motion,
-            zzfx and rage.
-          </Text>
-        </AnimatedPanel>
-      </PanelList>
-    </Padding>
-  );
-};
+// Define types for section data
+interface Section {
+  text: string;
+  buttons?: {
+    text: string;
+    action: string;
+  }[];
+}
+
+// Define types for button data
+interface Button {
+  text: string;
+  action: string;
+  url: string | null;
+  activationKey: string | null;
+}
+
+// Define type for data object
+interface Data {
+  views: {
+    md: {
+      right: View[];
+    };
+  };
+  sections: {
+    [key: string]: Section;
+  };
+}
+
+// const DesktopOnly = () => {
+//   function handleButtonClick(action: string, url: string | null) {
+//     if(!url){
+//       console.log(`Button with action ${action} was clicked.`)
+//     } else {
+//       switch (action) {
+//         case "visit":
+//           window.open(url, "_blank");  // Opens the URL in a new tab.
+//           break;
+//         // Handle other actions here...
+//         default:
+//           console.log(`Button with action ${action} was clicked.`);
+//       }
+//     }
+//   }
+
+//   return (
+//     <div>
+//       {data.views.md.right.map((view: { section: string; toggleable: boolean; expanded: boolean; }, viewIndex: number) => {
+//         const sectionData = data.sections[view.section];
+//         return (
+//           <AnimatedPanel
+//             key={view.section}
+//             title={sectionData.title}
+//             toggleable={view.toggleable}
+//             expanded={view.expanded}
+//             actions={
+//               sectionData.buttons && sectionData.buttons.map((button: Button, buttonIndex: number) => (
+//                 <ActionButton
+//                   key={buttonIndex}
+//                   index={buttonIndex}
+//                   activationKey={button.activationKey || button.text[0].toUpperCase()} // Use first character of button text as activation key.
+//                   onActivate={() => handleButtonClick(button.action, button.url)}
+//                 >
+//                   {button.text}
+//                 </ActionButton>
+//               ))
+//             }
+//           >
+//             {sectionData.text}
+//           </AnimatedPanel>
+//         );
+//       })}
+//     </div>
+//   );
+// };
 
 const Visibility = styled("div", {
   variants: {
@@ -287,10 +299,32 @@ const Maximised = styled("div", {
   length: 0
 });
 
+const useIsMdUp = () => {
+  const [isMdUp, setIsMdUp] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    setIsMdUp(mediaQuery.matches);
+
+    const listener = (event: { matches: boolean | ((prevState: boolean) => boolean); }) => {
+      setIsMdUp(event.matches);
+    };
+
+    mediaQuery.addEventListener('change', listener);
+    return () => {
+      mediaQuery.removeEventListener('change', listener);
+    };
+  }, []);
+
+  return isMdUp;
+};
+
 const Home: NextPage = () => {
   const showBg = true;
 
-  const router = useRouter();
+  // const router = useRouter();
+
+  const isMdUp = useIsMdUp();
 
   const [view, setView] = useState<"initial" | "active" | "maximised">(
     "initial"
@@ -303,7 +337,7 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Head>
         <title>
-        {data.index.title}
+        {data.shared.title}
         </title>
         {data.shared.meta.map((meta: { name: string | undefined; content: string | undefined; }, index: React.Key | null | undefined) => (
         <meta
@@ -420,126 +454,20 @@ const Home: NextPage = () => {
             >
               <Padding layout="md" className="special">
                 <PanelList>
-                  <AnimatedPanel title="About Us">
-                    <Text dangerouslySetInnerHTML={{ __html: data.index.aboutus.text }} />
-                  </AnimatedPanel>
-
-                  <AnimatedPanel
-                    title="Our Services"
-                    actions={[
-                      <ActionButton
-                        // onActivate={() => visit("https://www.linkedin.com/company/gamma-data/", 300)}
-                        onActivate={() => {
-                          router.push('/contactus');
-                        }}                        
-                        index={3}
-                        key={3}
-                        activationKey="C"
-                      >
-                        linkedin
-                      </ActionButton>,
-                      <ActionButton
-                        onActivate={() =>
-                          visit("https://github.com/gammastudios", 300)
-                        }
-                        index={4}
-                        key={4}
-                        activationKey="G"
-                      >
-                        github
-                      </ActionButton>,
-                      <ActionButton
-                        onActivate={() => visit("mailto:info@gammadata.io", 300)}
-                        index={5}
-                        key={5}
-                        activationKey="A"
-                      >
-                        email us
-                      </ActionButton>,
-                    ]}
-                  >
-                    <Text dangerouslySetInnerHTML={{ __html: data.index.services.text }} />
-                  </AnimatedPanel>
-                  
-                  <AnimatedPanel
-                    title="Our Blog"
-                    toggleable={false}
-                    actions={[
-                      <ActionButton
-                          onActivate={() =>
-                            visit("https://medium.com/gammadata", 300)
-                          }
-                          index={6}
-                          key={6}
-                          activationKey="M"
-                        >
-                        medium 
-                        </ActionButton>,
-                      <ActionButton
-                      onActivate={() =>
-                        visit("https://fullstackchronicles.io/", 300)
-                      }
-                      index={7}
-                      key={7}
-                      activationKey="F"
-                    >
-                    full stack chronicles 
-                    </ActionButton>                        
-                    ]}
-                    >
-                    <Text>
-                      <b>Unveiling the Power of Service Account Impersonation in Google Cloud Platform</b>
-                      <br /> --- <br />
-                      Want to stop using service account keys at your command line? Would you like to run dbt from
-                      <br />
-                      your command line but impersonate the same service account that’s running your code in GCP?
-                      <a href='https://medium.com/p/23c6adbf4355'> [link] </a>
-                      <br />
-                    </Text>                    
-                    <Text>
-                      <br />
-                      <b>Apache Iceberg and Google Cloud</b>
-                      <br /> --- <br />
-                      Wanted to time-travel, query a lake at a point-in-time, 
-                      and support schema evolution effortlessly? Then read on... 
-                      <a href='https://medium.com/gammadata/apache-iceberg-and-google-cloud-239b1ae9fceb'> [link] </a>
-                    </Text>
-                    <Text>
-                      <br />
-                      <b>Serving dbt docs on Gitlab (Static) Pages</b>
-                      <br /> --- <br />
-                      Want a true static page, and not have to run `dbt run server` so you can host
-                      on Gitlab or Github?
-                      <a href='https://medium.com/gammadata/serving-dbt-docs-on-gitlab-static-pages-3365416c8b22'> [link] </a>
-
-                      <br /> <br />more...
-                    </Text>
-
-                  </AnimatedPanel>
-
-                  <AnimatedPanel
-                    title="Play a Game"
-                    toggleable={false}
-                    actions={[
-                      <ActionButton
-                        onActivate={() =>
-                          setTimeout(() => setView("maximised"), 300)
-                        }
-                        index={8}
-                        key={8}
-                        activationKey="X"
-                      >
-                        let's play
-                      </ActionButton>,
-                    ]}
-                  ></AnimatedPanel>
-
+                  {(isMdUp ? data.views.md.left : data.views.sm).map((view: { section: string | number; toggleable: boolean; expanded: boolean; }, index: React.Key | null | undefined) => {
+                    const sectionData = data.sections[view.section];
+                    return (
+                      <AnimatedPanel key={index} toggleable={view.toggleable} expanded={view.expanded} title={sectionData.title}>
+                        <Text dangerouslySetInnerHTML={{ __html: sectionData.text }} />
+                      </AnimatedPanel>
+                    );
+                  })}
                 </PanelList>
               </Padding>
             </Overlay>
           </>
         )}
-        {view === "active" && (
+        {view === "active" && isMdUp && (
           <OverlayRight
             layout={{
               "@initial": "sm",
@@ -549,11 +477,19 @@ const Home: NextPage = () => {
             }}
             className="source-panel"
           >
-            <DesktopOnly />
+            <PanelList>
+              {data.views.md.right.map((view: { section: string | number; toggleable: boolean; expanded: boolean; }, index: React.Key | null | undefined) => {
+                const sectionData = data.sections[view.section];
+                return (
+                  <AnimatedPanel key={index} toggleable={view.toggleable} expanded={view.expanded} title={sectionData.title}>
+                    <Text dangerouslySetInnerHTML={{ __html: sectionData.text }} />
+                  </AnimatedPanel>
+                );
+              })}
+            </PanelList>
           </OverlayRight>
         )}
       </HudGrid>
-      
     </div>
   );
 };

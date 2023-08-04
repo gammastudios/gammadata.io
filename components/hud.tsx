@@ -86,49 +86,6 @@ const animatedPanelVariants = {
   },
 };
 
-// export const AnimatedPanel = ({
-//   title,
-//   children,
-//   expanded = true,
-//   toggleable = true,
-//   actions,
-// }: {
-//   title?: string;
-//   children?: ReactNode;
-//   expanded?: boolean;
-//   toggleable?: boolean;
-//   actions?: ReactNodeArray;
-// }) => {
-//   const [open, setOpen] = useState(expanded);
-
-//   return (
-//     <motion.div variants={animatedPanelVariants}>
-//       <Panel>
-//         <PanelLegend>
-//           {toggleable && (
-//             <>
-//               <PanelLegendExpandButton
-//                 onClick={() => {
-//                   setOpen(!open);
-//                   open ? closePanel() : openPanel();
-//                 }}
-//               >
-//                 [{open ? "-" : "+"}]
-//               </PanelLegendExpandButton>
-//             </>
-//           )}
-//           {title}
-//         </PanelLegend>
-//         {children}
-//         {actions && actions.length > 0 && children && <br />}
-//         <ActionButtonList open={open}>
-//           <AnimatePresence>{open && actions}</AnimatePresence>
-//         </ActionButtonList>
-//       </Panel>
-//     </motion.div>
-//   );
-// };
-
 export const AnimatedPanel = ({
   title,
   children,
@@ -143,6 +100,16 @@ export const AnimatedPanel = ({
   actions?: ReactNodeArray;
 }) => {
   const [open, setOpen] = useState(expanded);
+  
+  // Update `open` state when `expanded` prop changes
+  useEffect(() => {
+    setOpen(expanded);
+  }, [expanded]);
+
+  // Function to handle clicks on the panel legend button
+  const handleLegendClick = () => {
+    setOpen(!open);
+  };
 
   return (
     <motion.div variants={animatedPanelVariants}>
@@ -150,12 +117,7 @@ export const AnimatedPanel = ({
         <PanelLegend>
           {toggleable && (
             <>
-              <PanelLegendExpandButton
-                onClick={() => {
-                  setOpen(!open);
-                  open ? closePanel() : openPanel();
-                }}
-              >
+              <PanelLegendExpandButton onClick={handleLegendClick}>
                 [{open ? "-" : "+"}]
               </PanelLegendExpandButton>
             </>
@@ -310,43 +272,6 @@ const actionButtonVariants = {
     opacity: 0,
   },
 };
-
-// export const ActionButton = ({
-//   children,
-//   index = 0,
-//   activationKey,
-//   onActivate,
-// }: ActionButtonProps) => {
-//   const el: RefObject<HTMLButtonElement> = useRef(null);
-//   const [active, setActive] = useState(false);
-//   const onEnter = () => blip(index);
-//   const onClick = () => {
-//     newName();
-//     onActivate && onActivate();
-//     setActive(true);
-//     el.current?.focus();
-//     setTimeout(() => setActive(false), 500);
-//   };
-
-//   // Did I need to use my own library for this one key binding? No, not at all.
-//   useKeyDown(activationKey.charCodeAt(0), () => {
-//     console.log('i clicked you XXXXX ' + activationKey + '\n')
-//     onClick();
-//   });
-
-//   return (
-//     <motion.div variants={actionButtonVariants}>
-//       <Button
-//         ref={el}
-//         onClick={onClick}
-//         onMouseEnter={onEnter}
-//         active={active ? "yes" : "no"}
-//       >
-//         <code>[{activationKey}]</code> {children}
-//       </Button>
-//     </motion.div>
-//   );
-// };
 
 export const ActionButton = ({
   children,
