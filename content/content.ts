@@ -1,7 +1,22 @@
 export const data: Record<string, any> = {
+    contactus: {
+      head: {
+        title: "Gamma Data | Data and ML Engineering Excellence | Contact Us",
+        meta: [
+          {
+              name: "description",
+              content: "Data and ML Engineering Experts",
+          },
+          {
+              name: "keywords",
+              content: "data, ML, engineering, cloud, experts",
+          },
+        ],
+      },
+    },
     index: {
         head: {
-            title: "Gamma Data | Data and ML Engineering Excellence",
+            title: "Gamma Data | Data and ML Engineering Excellence | Home",
             meta: [
               {
                   name: "description",
