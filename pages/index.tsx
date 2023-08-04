@@ -2,7 +2,6 @@ import { data } from '../content/content';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-
 import { animated, useSpring } from "@react-spring/three";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
@@ -304,9 +303,9 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Head>
         <title>
-        {data.index.head.title}
+        {data.index.title}
         </title>
-        {data.index.head.meta.map((meta: { name: string | undefined; content: string | undefined; }, index: React.Key | null | undefined) => (
+        {data.shared.meta.map((meta: { name: string | undefined; content: string | undefined; }, index: React.Key | null | undefined) => (
         <meta
           key={index}
           name={meta.name}
@@ -345,8 +344,8 @@ const Home: NextPage = () => {
 
       <FooterTag>
         <Text>
-        {data.index.footer.name}<br />
-        {data.index.footer.abn}
+        {data.shared.footer.name}<br />
+        {data.shared.footer.abn}
         </Text>
       </FooterTag>
       <HudGrid className="hud">
@@ -383,8 +382,8 @@ const Home: NextPage = () => {
             <Padding layout="md">
               <PanelList>
                 <Panel title="BF.WTF">
-                  <Text>{data.index.greetings.headline}</Text>
-                  <Text><br/>{data.index.greetings.byline}</Text>
+                  <Text>{data.initial.headline}</Text>
+                  <Text><br/>{data.initial.byline}</Text>
                   <br />
                   <ActionButton
                     onActivate={() => {
@@ -422,7 +421,7 @@ const Home: NextPage = () => {
               <Padding layout="md" className="special">
                 <PanelList>
                   <AnimatedPanel title="About Us">
-                    <Text dangerouslySetInnerHTML={{ __html: data.index.sections.aboutus.text }} />
+                    <Text dangerouslySetInnerHTML={{ __html: data.index.aboutus.text }} />
                   </AnimatedPanel>
 
                   <AnimatedPanel
@@ -459,8 +458,9 @@ const Home: NextPage = () => {
                       </ActionButton>,
                     ]}
                   >
-                    <Text dangerouslySetInnerHTML={{ __html: data.index.sections.services.text }} />
+                    <Text dangerouslySetInnerHTML={{ __html: data.index.services.text }} />
                   </AnimatedPanel>
+                  
                   <AnimatedPanel
                     title="Our Blog"
                     toggleable={false}
@@ -516,8 +516,9 @@ const Home: NextPage = () => {
                     </Text>
 
                   </AnimatedPanel>
-                  {/* <AnimatedPanel
-                    title="Explore Mode"
+
+                  <AnimatedPanel
+                    title="Play a Game"
                     toggleable={false}
                     actions={[
                       <ActionButton
@@ -528,10 +529,11 @@ const Home: NextPage = () => {
                         key={8}
                         activationKey="X"
                       >
-                        maximise art
+                        let's play
                       </ActionButton>,
                     ]}
-                  ></AnimatedPanel> */}
+                  ></AnimatedPanel>
+
                 </PanelList>
               </Padding>
             </Overlay>

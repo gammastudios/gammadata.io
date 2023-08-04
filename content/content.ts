@@ -1,77 +1,63 @@
 export const data: Record<string, any> = {
-    contactus: {
-      head: {
-        title: "Gamma Data | Data and ML Engineering Excellence | Contact Us",
-        meta: [
-          {
-              name: "description",
-              content: "Data and ML Engineering Experts",
-          },
-          {
-              name: "keywords",
-              content: "data, ML, engineering, cloud, experts",
-          },
-        ],
+  shared: {
+    meta: [
+      {
+          name: "description",
+          content: "Data and ML Engineering Experts",
       },
+      {
+          name: "keywords",
+          content: "data, ML, engineering, cloud, experts",
+      },
+    ],
+    footer: {
+      name: "gammadata.io",
+      abn: "ABN 42 638 543 674",
     },
-    index: {
-        head: {
-            title: "Gamma Data | Data and ML Engineering Excellence | Home",
-            meta: [
-              {
-                  name: "description",
-                  content: "Data and ML Engineering Experts",
-              },
-              {
-                  name: "keywords",
-                  content: "data, ML, engineering, cloud, experts",
-              },
-          ],
-        },
-        footer: {
-          name: "gammadata.io",
-          abn: "ABN 42 638 543 674",
-        },
-        greetings: {
-          headline: "Welcome to Gamma Data.",
-          byline:  "Data. ML. Engineering. Experts.",
-        },
-        sections: {
-          aboutus: {
-            text: `Hi, you've landed on Gamma Data's page.<br/> <br/>
-            We are experts in Data, ML and Software Engineering for the cloud, located in Melbourne, Australia. We spend most of our time thinking about, and working on:
-            <ul>
-              <li>actionable data strategy and architecture</li>
-              <li>strategic review and advisory</li>
-              <li>building out data-centric infrastructure</li>
-              <li>fit for purpose data modelling and design</li>
-              <li>software engineering and XOps</li>
-              <li>learning, development and customer enablement</li>
-            </ul>
-            If you're looking for an expert to help you bring your Data strategy vision to life, then reach out.`
-            },
-            services: {
-              text: `We specialise in:
-              <ul>
-                <li>☁️ Cloud, all clouds.<br />
-                Our team can help with green field cloud projects, hybrid or multi-cloud implementations, or migrations between major cloud providers.
-                </li>
-                <li>📈 Data.<br />
-                Delivering end to end data solutions including channel solutions, reporting systems and advanced analytics applications.
-                </li>
-                <li>📐 Architecture.<br />
-                Expert software professionals delivering world class data and full stack application architecture and design services.
-                </li>
-                <li>⚙️ Engineering.<br />
-                From automating infrastructure, platform and application deployment to test automation to continuous security and compliance, we can help you build a world class platform, data and machine learning engineering capability and culture.
-                </li>
-                <li>📖 Training and Enablement.<br />
-                With authorized trainers and developer experts across numerous cloud and data platform providers, we can deliver tailored training and development programs for your engineering staff.
-                </li>
-              </ul>`
-            },                        
-          },
-        },
+  },
+  initial: {
+    headline: "Welcome to Gamma Data.",
+    byline:  "Data. ML. Engineering. Experts.",
+  },
+  index: {
+    title: "Gamma Data | Data and ML Engineering Excellence | Home",
+    aboutus: {
+      text: `Hi, you've landed on Gamma Data's page.<br/> <br/>
+      We are experts in Data, ML and Software Engineering for the cloud, located in Melbourne, Australia. We spend most of our time thinking about, and working on:
+      <ul>
+        <li>actionable data strategy and architecture</li>
+        <li>strategic review and advisory</li>
+        <li>building out data-centric infrastructure</li>
+        <li>fit for purpose data modelling and design</li>
+        <li>software engineering and XOps</li>
+        <li>learning, development and customer enablement</li>
+      </ul>
+      If you're looking for an expert to help you bring your Data strategy vision to life, then reach out.`
+      },
+      services: {
+        text: `We specialise in:
+        <ul>
+          <li>☁️ Cloud, all clouds.<br />
+          Our team can help with green field cloud projects, hybrid or multi-cloud implementations, or migrations between major cloud providers.
+          </li>
+          <li>📈 Data.<br />
+          Delivering end to end data solutions including channel solutions, reporting systems and advanced analytics applications.
+          </li>
+          <li>📐 Architecture.<br />
+          Expert software professionals delivering world class data and full stack application architecture and design services.
+          </li>
+          <li>⚙️ Engineering.<br />
+          From automating infrastructure, platform and application deployment to test automation to continuous security and compliance, we can help you build a world class platform, data and machine learning engineering capability and culture.
+          </li>
+          <li>📖 Training and Enablement.<br />
+          With authorized trainers and developer experts across numerous cloud and data platform providers, we can deliver tailored training and development programs for your engineering staff.
+          </li>
+        </ul>`
+      },
+      portfolio: {},
+      insights: {},
+      contactus: {},
+    },
     home: {
       content: {
         aboutus: {
