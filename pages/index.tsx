@@ -1,7 +1,4 @@
 import { data } from '../content/content';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-
 import { animated, useSpring } from "@react-spring/three";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
@@ -18,7 +15,6 @@ import {
 } from "../components/hud";
 import Ribbon from "../components/Ribbon";
 import { entry } from "../components/sounds";
-import pkg from "../package.json";
 import { styled } from "../stitches";
 import styles from "../styles/Home.module.css";
 
@@ -197,53 +193,6 @@ interface Data {
   };
 }
 
-// const DesktopOnly = () => {
-//   function handleButtonClick(action: string, url: string | null) {
-//     if(!url){
-//       console.log(`Button with action ${action} was clicked.`)
-//     } else {
-//       switch (action) {
-//         case "visit":
-//           window.open(url, "_blank");  // Opens the URL in a new tab.
-//           break;
-//         // Handle other actions here...
-//         default:
-//           console.log(`Button with action ${action} was clicked.`);
-//       }
-//     }
-//   }
-
-//   return (
-//     <div>
-//       {data.views.md.right.map((view: { section: string; toggleable: boolean; expanded: boolean; }, viewIndex: number) => {
-//         const sectionData = data.sections[view.section];
-//         return (
-//           <AnimatedPanel
-//             key={view.section}
-//             title={sectionData.title}
-//             toggleable={view.toggleable}
-//             expanded={view.expanded}
-//             actions={
-//               sectionData.buttons && sectionData.buttons.map((button: Button, buttonIndex: number) => (
-//                 <ActionButton
-//                   key={buttonIndex}
-//                   index={buttonIndex}
-//                   activationKey={button.activationKey || button.text[0].toUpperCase()} // Use first character of button text as activation key.
-//                   onActivate={() => handleButtonClick(button.action, button.url)}
-//                 >
-//                   {button.text}
-//                 </ActionButton>
-//               ))
-//             }
-//           >
-//             {sectionData.text}
-//           </AnimatedPanel>
-//         );
-//       })}
-//     </div>
-//   );
-// };
-
 const Visibility = styled("div", {
   variants: {
     visiblity: {
@@ -322,8 +271,6 @@ const useIsMdUp = () => {
 const Home: NextPage = () => {
   const showBg = true;
 
-  // const router = useRouter();
-
   const isMdUp = useIsMdUp();
 
   const [view, setView] = useState<"initial" | "active" | "maximised">(
@@ -333,6 +280,68 @@ const Home: NextPage = () => {
   const scaleValue = view === "initial" ? [0.1, 0.1, 0.1] : [1, 1, 1];
   const props = useSpring({ scale: scaleValue });
 
+//   const renderSection = (view: { section: string | number; toggleable: boolean | undefined; expanded: boolean | undefined; }, index: React.Key | null | undefined) => {
+//     const sectionData = data.sections[view.section];
+//         return (
+//             <AnimatedPanel key={index} toggleable={view.toggleable} expanded={view.expanded} title={sectionData.title}>
+//                 <Text dangerouslySetInnerHTML={{ __html: sectionData.text }} />
+//             </AnimatedPanel>
+//         );
+//     };
+
+const renderSection = (view: { section: string | number; toggleable: boolean | undefined; expanded: boolean | undefined; }, index: React.Key | null | undefined) => {
+    const sectionData = data.sections[view.section];
+  
+    // Check if the section has any buttons
+    const hasButtons = Array.isArray(sectionData.buttons) && sectionData.buttons.length > 0;
+  
+    return (
+      <AnimatedPanel key={index} toggleable={view.toggleable} expanded={view.expanded} title={sectionData.title}>
+        <Text dangerouslySetInnerHTML={{ __html: sectionData.text }} />
+  
+        {/* Render buttons if they exist */}
+        {hasButtons && sectionData.buttons.map((button: { activationKey: string; url: string; action: string | number; text: string; }, buttonIndex: number | undefined) => (
+          <ActionButton
+            key={buttonIndex}
+            index={buttonIndex}
+            activationKey={button.activationKey}
+            onActivate={button.url ? urlActionMap[button.action](button.url) : actionMap[button.action]}
+          >
+            {button.text}
+          </ActionButton>
+        ))}
+      </AnimatedPanel>
+    );
+  };
+  
+    /// begin
+    const urlActionMap: { [key: string]: (url: string) => (() => void) } = {
+        visit: (url: string) => () => visit(url, 300),
+      };
+      
+      const actionMap: { [key: string]: () => void } = {
+        entry: () => {
+          setTimeout(entry, 100);
+          setTimeout(() => {
+            setView("active");
+          }, 300);
+        },
+        maximiseArt: () => setTimeout(() => setView("maximised"), 300),
+      };
+      
+      const generateButtons = (buttons: { activationKey: string; action: string; url?: string; text: string; }[]) =>
+        buttons.map((button, index) => (
+          <ActionButton
+            key={index}
+            index={index}
+            activationKey={button.activationKey}
+            onActivate={button.url ? urlActionMap[button.action](button.url) : actionMap[button.action]}
+          >
+            {button.text}
+          </ActionButton>
+        ));
+                  
+    /// end
   return (
     <div className={styles.container}>
       <Head>
@@ -454,14 +463,7 @@ const Home: NextPage = () => {
             >
               <Padding layout="md" className="special">
                 <PanelList>
-                  {(isMdUp ? data.views.md.left : data.views.sm).map((view: { section: string | number; toggleable: boolean; expanded: boolean; }, index: React.Key | null | undefined) => {
-                    const sectionData = data.sections[view.section];
-                    return (
-                      <AnimatedPanel key={index} toggleable={view.toggleable} expanded={view.expanded} title={sectionData.title}>
-                        <Text dangerouslySetInnerHTML={{ __html: sectionData.text }} />
-                      </AnimatedPanel>
-                    );
-                  })}
+                  {(isMdUp ? data.views.md.left : data.views.sm).map((view: { section: string | number; toggleable: boolean | undefined; expanded: boolean | undefined; }, index: React.Key | null | undefined) => renderSection(view, index))}
                 </PanelList>
               </Padding>
             </Overlay>
@@ -478,14 +480,7 @@ const Home: NextPage = () => {
             className="source-panel"
           >
             <PanelList>
-              {data.views.md.right.map((view: { section: string | number; toggleable: boolean; expanded: boolean; }, index: React.Key | null | undefined) => {
-                const sectionData = data.sections[view.section];
-                return (
-                  <AnimatedPanel key={index} toggleable={view.toggleable} expanded={view.expanded} title={sectionData.title}>
-                    <Text dangerouslySetInnerHTML={{ __html: sectionData.text }} />
-                  </AnimatedPanel>
-                );
-              })}
+            {data.views.md.right.map((view: { section: string | number; toggleable: boolean | undefined; expanded: boolean | undefined; }, index: React.Key | null | undefined) => renderSection(view, index))}              
             </PanelList>
           </OverlayRight>
         )}

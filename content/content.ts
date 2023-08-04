@@ -26,12 +26,13 @@ export const data: Record<string, any> = {
         {section: "aboutus", toggleable: true, expanded: true},
         {section: "services", toggleable: true, expanded: true},
         {section: "insights", toggleable: true, expanded: true},
-        {section: "easteregg", toggleable: true, expanded: true},
+        {section: "source", toggleable: true, expanded: false},
+        {section: "easteregg", toggleable: true, expanded: false},
       ],
       right: [
         {section: "contactus", toggleable: true, expanded: true},
         {section: "people", toggleable: true, expanded: false},
-        {section: "portfolio", toggleable: true, expanded: true},
+        {section: "portfolio", toggleable: true, expanded: false},
       ],
     },
     sm: [
@@ -41,13 +42,13 @@ export const data: Record<string, any> = {
       {section: "insights", toggleable: true, expanded: false},
       {section: "contactus", toggleable: true, expanded: false},
       {section: "people", toggleable: true, expanded: false},
-      {section: "source", toggleable: true, expanded: true},
+      {section: "source", toggleable: true, expanded: false},
     ],
   },
   sections: {
     aboutus: {
       title: "About Us",
-      text: `Hi, you've landed on Gamma Data's page.<br/> <br/>
+      text: `You've landed on Gamma Data's page.<br/> <br/>
       We are experts in Data, ML and Software Engineering for the cloud, located in Melbourne, Australia. We spend most of our time thinking about, and working on:
       <ul>
         <li>actionable data strategy and architecture</li>
@@ -86,11 +87,34 @@ export const data: Record<string, any> = {
     },
     insights: {
       title: "Insights",
-      text: `We're passionate about data and cloud, and we love to share our knowledge and experience with the community. Check out our blog posts and articles below.`
+      text: `We're passionate about data and cloud, and we love to share our knowledge and experience with the community. Check out our blog posts and articles below.<br /><br />
+      Unveiling the Power of Service Account Impersonation in Google Cloud Platform<br />
+      ---<br />
+      Want to stop using service account keys at your command line? Would you like to run dbt from your command line 
+      but impersonate the same service account that's running your code in GCP?...<a href="https://medium.com/p/23c6adbf4355" target="_blank">[link]</a><br /><br />
+      
+      Apache Iceberg and Google Cloud<br />
+      ---<br />
+      Wanted to time-travel, query a lake at a point-in-time, and support schema evolution effortlessly? 
+      Then read on... <a href="https://medium.com/gammadata/apache-iceberg-and-google-cloud-239b1ae9fceb" target="_blank">[link]</a><br /><br />
+      
+      Serving dbt docs on Gitlab (Static) Pages<br />
+      ---<br />
+      Want a true static page, and not have to run <code>dbt run server</code> so you can host on Gitlab or Github? <a href="https://medium.com/gammadata/serving-dbt-docs-on-gitlab-static-pages-3365416c8b22" target="_blank">[link]</a><br /><br />
+      
+      see our blogs for more...      
+      `
     },
     contactus: {
       title: "Contact Us",
-      text: `We'd love to hear from you. If you'd like to get in touch, please reach out to us at`,
+      text: `
+      Want to get in touch? We'd love to hear from you.
+      <br/><br/>
+      Level 24, 570 Bourke Street<br/>
+      Melbourne, VIC, 3000, Australia<br/><br/>
+      <a href="tel:0386585884">☎️ +61 3 8658 5884</a><br/>
+      <a href="mailto:info@gammadata.io">✉️ info@gammadata.io</a>
+      `,
       buttons: [
         {
           text: "View Code",
@@ -98,15 +122,35 @@ export const data: Record<string, any> = {
           url: "https://github.com/TomKlimovski/bf-3/blob/main/pages/index.tsx",
           activationKey: "Q",
         },
+        {
+          text: "Perform Entry",
+          action: "entry",
+          activationKey: "E",
+        },
+        {
+          text: "Maximise Art",
+          action: "maximiseArt",
+          activationKey: "M",
+        },
       ],
     }, 
     people: {
       title: "Our People",
-      text: `We're a small team of experts, and we're always looking for more. If you're interested in joining us, please reach out to us at`
+      text: `
+      <a href="https://www.linkedin.com/in/jeffreyaven/" target="_blank">Jeffrey Aven</a>, Partner/Principal Consultant<br/><br/>
+      <a href="https://www.linkedin.com/in/tomklimovski/" target="_blank">Tom Klimovski</a>, Partner/Principal Consultant<br/><br/>
+      <a href="https://www.linkedin.com/in/mark-stella-3823976/" target="_blank">Mark Stella</a>, Partner/Principal Consultant<br/><br/>
+      <a href="https://www.linkedin.com/in/simoncolmer/" target="_blank">Simon Colmer</a>, Lead Consultant<br/><br/>
+      <a href="https://www.linkedin.com/in/christopherottinger/" target="_blank">Christopher Ottinger</a>, Lead Consultant<br/><br/>
+      <a href="https://www.linkedin.com/in/russelldiery/" target="_blank">Russell Diery</a>, Lead Consultant<br/><br/>
+      <a href="https://www.linkedin.com/in/kieranrimmer/" target="_blank">Kieran Rimmer</a>, Lead Consultant
+      `
     },
     source: {
       title: "Source Code",
-      text: `This site is open source. If you'd like to contribute, please reach out to us at`
+      text: `
+      We are a team of software engineers, and we love to share our work with the community including this site.  Check out some of the projects we've been working on.
+      `
     },
     easteregg: {
       title: "Play a Game",
