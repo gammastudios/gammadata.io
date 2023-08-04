@@ -26,13 +26,13 @@ export const data: Record<string, any> = {
         {section: "aboutus", toggleable: true, expanded: true},
         {section: "services", toggleable: true, expanded: true},
         {section: "insights", toggleable: true, expanded: true},
-        {section: "source", toggleable: true, expanded: false},
-        {section: "easteregg", toggleable: true, expanded: false},
+        {section: "source", toggleable: true, expanded: true},
+        // {section: "easteregg", toggleable: true, expanded: false},
       ],
       right: [
         {section: "contactus", toggleable: true, expanded: true},
-        {section: "people", toggleable: true, expanded: false},
-        {section: "portfolio", toggleable: true, expanded: false},
+        {section: "people", toggleable: true, expanded: true},
+        {section: "portfolio", toggleable: true, expanded: true},
       ],
     },
     sm: [
@@ -83,7 +83,16 @@ export const data: Record<string, any> = {
     },
     portfolio: {
       title: "Our Work",
-      text: `We've worked with some of the largest companies in Australia and the world, and we've helped them deliver some of the most complex and challenging data and cloud projects in the country.`
+      text: `We've worked with some of the largest companies in Australia and the world, 
+      and we've helped them deliver some of the most complex and challenging data and cloud projects in the country.  Want to know more?`,
+      buttons: [
+        {
+          text: "Get in touch",
+          action: "visit",
+          url: "mailto:info@gammadata.io",
+          activationKey: "E",
+        },
+      ],      
     },
     insights: {
       title: "Insights",
@@ -103,7 +112,21 @@ export const data: Record<string, any> = {
       Want a true static page, and not have to run <code>dbt run server</code> so you can host on Gitlab or Github? <a href="https://medium.com/gammadata/serving-dbt-docs-on-gitlab-static-pages-3365416c8b22" target="_blank">[link]</a><br /><br />
       
       see our blogs for more...      
-      `
+      `,
+      buttons: [
+        {
+          text: "Gamma Data Blog on Medium",
+          action: "visit",
+          url: "https://medium.com/gammadata",
+          activationKey: "M",
+        },
+        {
+          text: "Full Stack Chronicles Blog",
+          action: "visit",
+          url: "https://fullstackchronicles.io/",
+          activationKey: "F",
+        },        
+      ],      
     },
     contactus: {
       title: "Contact Us",
@@ -117,20 +140,10 @@ export const data: Record<string, any> = {
       `,
       buttons: [
         {
-          text: "View Code",
+          text: "Visit our LinkedIn page",
           action: "visit",
-          url: "https://github.com/TomKlimovski/bf-3/blob/main/pages/index.tsx",
-          activationKey: "Q",
-        },
-        {
-          text: "Perform Entry",
-          action: "entry",
-          activationKey: "E",
-        },
-        {
-          text: "Maximise Art",
-          action: "maximiseArt",
-          activationKey: "M",
+          url: "https://www.linkedin.com/company/gamma-data/",
+          activationKey: "L",
         },
       ],
     }, 
@@ -150,11 +163,32 @@ export const data: Record<string, any> = {
       title: "Source Code",
       text: `
       We are a team of software engineers, and we love to share our work with the community including this site.  Check out some of the projects we've been working on.
-      `
+      `,
+      buttons: [
+        {
+          text: "Gamma Data on Github",
+          action: "visit",
+          url: "https://github.com/gammastudios",
+          activationKey: "G",
+        },
+        {
+          text: "StackQL",
+          action: "visit",
+          url: "https://github.com/stackql/stackql",
+          activationKey: "S",
+        },        
+      ],      
     },
     easteregg: {
       title: "Play a Game",
-      text: `We love games. If you'd like to play a game, please reach out to us at`
+      text: `We love games. If you'd like to play a game, please reach out to us at`,
+      buttons: [
+        {
+          text: "Maximise Art",
+          action: "maximiseArt",
+          activationKey: "A",
+        },
+      ],
     },         
   },
 }
