@@ -269,52 +269,43 @@ const useIsMdUp = () => {
 };
 
 const Home: NextPage = () => {
-  const showBg = true;
+    const showBg = true;
 
-  const isMdUp = useIsMdUp();
+    const isMdUp = useIsMdUp();
 
-  const [view, setView] = useState<"initial" | "active" | "maximised">(
-    "initial"
-  );
-  const AnimatedGroup = animated.group;
-  const scaleValue = view === "initial" ? [0.1, 0.1, 0.1] : [1, 1, 1];
-  const props = useSpring({ scale: scaleValue });
-
-//   const renderSection = (view: { section: string | number; toggleable: boolean | undefined; expanded: boolean | undefined; }, index: React.Key | null | undefined) => {
-//     const sectionData = data.sections[view.section];
-//         return (
-//             <AnimatedPanel key={index} toggleable={view.toggleable} expanded={view.expanded} title={sectionData.title}>
-//                 <Text dangerouslySetInnerHTML={{ __html: sectionData.text }} />
-//             </AnimatedPanel>
-//         );
-//     };
-
-const renderSection = (view: { section: string | number; toggleable: boolean | undefined; expanded: boolean | undefined; }, index: React.Key | null | undefined) => {
-    const sectionData = data.sections[view.section];
-  
-    // Check if the section has any buttons
-    const hasButtons = Array.isArray(sectionData.buttons) && sectionData.buttons.length > 0;
-  
-    return (
-      <AnimatedPanel key={index} toggleable={view.toggleable} expanded={view.expanded} title={sectionData.title}>
-        <Text dangerouslySetInnerHTML={{ __html: sectionData.text }} />
-  
-        {/* Render buttons if they exist */}
-        {hasButtons && sectionData.buttons.map((button: { activationKey: string; url: string; action: string | number; text: string; }, buttonIndex: number | undefined) => (
-          <ActionButton
-            key={buttonIndex}
-            index={buttonIndex}
-            activationKey={button.activationKey}
-            onActivate={button.url ? urlActionMap[button.action](button.url) : actionMap[button.action]}
-          >
-            {button.text}
-          </ActionButton>
-        ))}
-      </AnimatedPanel>
+    const [view, setView] = useState<"initial" | "active" | "maximised">(
+        "initial"
     );
-  };
+
+    const AnimatedGroup = animated.group;
+    const scaleValue = view === "initial" ? 0.1 : 1;
+    const { scale } = useSpring({ scale: scaleValue });
+
+    const renderSection = (view: { section: string | number; toggleable: boolean | undefined; expanded: boolean | undefined; }, index: React.Key | null | undefined) => {
+        const sectionData = data.sections[view.section];
+
+        // Check if the section has any buttons
+        const hasButtons = Array.isArray(sectionData.buttons) && sectionData.buttons.length > 0;
+
+        return (
+        <AnimatedPanel key={index} toggleable={view.toggleable} expanded={view.expanded} title={sectionData.title}>
+            <Text dangerouslySetInnerHTML={{ __html: sectionData.text }} />
+
+            {/* Render buttons if they exist */}
+            {hasButtons && sectionData.buttons.map((button: { activationKey: string; url: string; action: string | number; text: string; }, buttonIndex: number | undefined) => (
+            <ActionButton
+                key={buttonIndex}
+                index={buttonIndex}
+                activationKey={button.activationKey}
+                onActivate={button.url ? urlActionMap[button.action](button.url) : actionMap[button.action]}
+            >
+                {button.text}
+            </ActionButton>
+            ))}
+        </AnimatedPanel>
+        );
+    };
   
-    /// begin
     const urlActionMap: { [key: string]: (url: string) => (() => void) } = {
         visit: (url: string) => () => visit(url, 300),
       };
@@ -341,7 +332,6 @@ const renderSection = (view: { section: string | number; toggleable: boolean | u
           </ActionButton>
         ));
                   
-    /// end
   return (
     <div className={styles.container}>
       <Head>
@@ -368,13 +358,13 @@ const renderSection = (view: { section: string | number; toggleable: boolean | u
               <pointLight position={[30, 0, 0]} color="blue" intensity={10} />
               <pointLight position={[0, -30, 0]} color="pink" intensity={5} />
               <pointLight position={[0, 0, 30]} color="purple" intensity={5} />
-              <AnimatedGroup {...props}>
-                <Ribbon id={1} color="#7b505c" />
-                <Ribbon id={64} color="#E8AE3B" />
-                <Ribbon id={256} color="#E8AE3B" />
-                <Ribbon id={512} color="#E8AE3B" />
-                <Ribbon id={128} color="#e4d6cf" />
-              </AnimatedGroup>
+                <AnimatedGroup scale={scale.to(s => [s, s, s])}>
+                    <Ribbon id={1} color="#7b505c" />
+                    <Ribbon id={64} color="#E8AE3B" />
+                    <Ribbon id={256} color="#E8AE3B" />
+                    <Ribbon id={512} color="#E8AE3B" />
+                    <Ribbon id={128} color="#e4d6cf" />
+                </AnimatedGroup>
               <Effects />
             </Suspense>
             <OrbitControls
