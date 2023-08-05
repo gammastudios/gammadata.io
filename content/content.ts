@@ -61,7 +61,7 @@ export const data: Record<string, any> = {
       If you're looking for an expert to help you bring your Data strategy vision to life, then reach out.`
     },
     services: {
-      title: "Our Services",
+      title: "Services",
       text: `We specialise in:
       <ul>
         <li>☁️ Cloud, all clouds.<br />
