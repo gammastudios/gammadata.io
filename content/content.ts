@@ -84,7 +84,7 @@ export const data: Record<string, any> = {
     portfolio: {
       title: "Our Work",
       text: `We've worked with some of the largest companies in Australia and the world, 
-      and we've helped them deliver some of the most complex and challenging data and cloud projects in the country.  Want to know more?`,
+      and we've helped them deliver some of the most complex and challenging data and cloud projects in the country.  Want to know more?< br/>`,
       buttons: [
         {
           text: "Get in touch",
@@ -111,17 +111,17 @@ export const data: Record<string, any> = {
       ---<br />
       Want a true static page, and not have to run <code>dbt run server</code> so you can host on Gitlab or Github? <a href="https://medium.com/gammadata/serving-dbt-docs-on-gitlab-static-pages-3365416c8b22" target="_blank">[link]</a><br /><br />
       
-      see our blogs for more...      
+      see our blogs for more...<br />      
       `,
       buttons: [
         {
-          text: "Gamma Data Blog on Medium",
+          text: "Medium",
           action: "visit",
           url: "https://medium.com/gammadata",
           activationKey: "M",
         },
         {
-          text: "Full Stack Chronicles Blog",
+          text: "fullstackchronicles.io",
           action: "visit",
           url: "https://fullstackchronicles.io/",
           activationKey: "F",
@@ -136,7 +136,7 @@ export const data: Record<string, any> = {
       Level 24, 570 Bourke Street<br/>
       Melbourne, VIC, 3000, Australia<br/><br/>
       <a href="tel:0386585884">☎️ +61 3 8658 5884</a><br/>
-      <a href="mailto:info@gammadata.io">✉️ info@gammadata.io</a>
+      <a href="mailto:info@gammadata.io">✉️ info@gammadata.io</a><br />
       `,
       buttons: [
         {
@@ -162,11 +162,11 @@ export const data: Record<string, any> = {
     source: {
       title: "Source Code",
       text: `
-      We are a team of software engineers, and we love to share our work with the community including this site.  Check out some of the projects we've been working on.
+      We are a team of software engineers, and we love to share our work with the community including this site.  Check out some of the projects we've been working on.<br />
       `,
       buttons: [
         {
-          text: "Gamma Data on Github",
+          text: "Gamma Studios GitHub",
           action: "visit",
           url: "https://github.com/gammastudios",
           activationKey: "G",
