@@ -121,7 +121,7 @@ export const data: Record<string, any> = {
           activationKey: "M",
         },
         {
-          text: "fullstackchronicles.io",
+          text: "Full Stack Chronicles",
           action: "visit",
           url: "https://fullstackchronicles.io/",
           activationKey: "F",
