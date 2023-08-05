@@ -84,7 +84,7 @@ export const data: Record<string, any> = {
     portfolio: {
       title: "Our Work",
       text: `We've worked with some of the largest companies in Australia and the world, 
-      and we've helped them deliver some of the most complex and challenging data and cloud projects in the country.  Want to know more?< br/>`,
+      and we've helped them deliver some of the most complex and challenging data and cloud projects in the country.  Want to know more?<br /><br />`,
       buttons: [
         {
           text: "Get in touch",
@@ -111,7 +111,7 @@ export const data: Record<string, any> = {
       ---<br />
       Want a true static page, and not have to run <code>dbt run server</code> so you can host on Gitlab or Github? <a href="https://medium.com/gammadata/serving-dbt-docs-on-gitlab-static-pages-3365416c8b22" target="_blank">[link]</a><br /><br />
       
-      see our blogs for more...<br />      
+      see our blogs for more...<br /><br />      
       `,
       buttons: [
         {
@@ -136,7 +136,7 @@ export const data: Record<string, any> = {
       Level 24, 570 Bourke Street<br/>
       Melbourne, VIC, 3000, Australia<br/><br/>
       <a href="tel:0386585884">☎️ +61 3 8658 5884</a><br/>
-      <a href="mailto:info@gammadata.io">✉️ info@gammadata.io</a><br />
+      <a href="mailto:info@gammadata.io">✉️ info@gammadata.io</a><br /><br />
       `,
       buttons: [
         {
@@ -162,7 +162,7 @@ export const data: Record<string, any> = {
     source: {
       title: "Source Code",
       text: `
-      We are a team of software engineers, and we love to share our work with the community including this site.  Check out some of the projects we've been working on.<br />
+      We are a team of software engineers, and we love to share our work with the community including this site.  Check out some of the projects we've been working on.<br /><br />
       `,
       buttons: [
         {
