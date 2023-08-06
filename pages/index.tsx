@@ -1,5 +1,5 @@
 import { data } from '../content/content';
-import { Reacteroids } from '../components/Reacteroids/src/index.js';
+import { Reacteroids } from '../components/Reacteroids';
 import { animated, useSpring } from "@react-spring/three";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
