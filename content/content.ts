@@ -27,7 +27,7 @@ export const data: Record<string, any> = {
         {section: "services", toggleable: true, expanded: true},
         {section: "insights", toggleable: true, expanded: true},
         {section: "source", toggleable: true, expanded: true},
-        // {section: "easteregg", toggleable: true, expanded: false},
+        {section: "easteregg", toggleable: true, expanded: true},
       ],
       right: [
         {section: "contactus", toggleable: true, expanded: true},
@@ -181,10 +181,10 @@ export const data: Record<string, any> = {
     },
     easteregg: {
       title: "Play a Game",
-      text: `We love games. If you'd like to play a game, please reach out to us at`,
+      text: `You've come this far, why not play a game?`,
       buttons: [
         {
-          text: "Maximise Art",
+          text: "Play Asteroids",
           action: "maximiseArt",
           activationKey: "A",
         },
