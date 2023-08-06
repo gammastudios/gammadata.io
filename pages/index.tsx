@@ -270,81 +270,69 @@ const useIsMdUp = () => {
 };
 
 const Home: NextPage = () => {
-    const showBg = true;
+  const showBg = true;
 
-    const isMdUp = useIsMdUp();
+  const isMdUp = useIsMdUp();
 
-    const [view, setView] = useState<"initial" | "active" | "maximised">(
-        "initial"
+  const [view, setView] = useState<"initial" | "active" | "maximised">(
+    "initial"
+  );
+
+  const AnimatedGroup = animated.group;
+  const scaleValue = view === "initial" ? 0.1 : 1;
+  const { scale } = useSpring({ scale: scaleValue });
+
+  const renderSection = (view: { section: string | number; toggleable: boolean | undefined; expanded: boolean | undefined; }, index: React.Key | null | undefined) => {
+    const sectionData = data.sections[view.section];
+
+    // Check if the section has any buttons
+    const hasButtons = Array.isArray(sectionData.buttons) && sectionData.buttons.length > 0;
+
+    return (
+      <AnimatedPanel key={index} toggleable={view.toggleable} expanded={view.expanded} title={sectionData.title}>
+        <Text dangerouslySetInnerHTML={{ __html: sectionData.text }} />
+
+        {/* Render buttons if they exist */}
+        {hasButtons && sectionData.buttons.map((button: { activationKey: string; url: string; action: string | number; text: string; }, buttonIndex: number | undefined) => (
+          <ActionButton
+            key={buttonIndex}
+            index={buttonIndex}
+            activationKey={button.activationKey}
+            onActivate={button.url ? urlActionMap[button.action](button.url) : actionMap[button.action]}
+          >
+            {button.text}
+          </ActionButton>
+        ))}
+      </AnimatedPanel>
     );
+  };
 
-    const AnimatedGroup = animated.group;
-    const scaleValue = view === "initial" ? 0.1 : 1;
-    const { scale } = useSpring({ scale: scaleValue });
+  const urlActionMap: { [key: string]: (url: string) => (() => void) } = {
+    visit: (url: string) => () => visit(url, 300),
+  };
 
-    const renderSection = (view: { section: string | number; toggleable: boolean | undefined; expanded: boolean | undefined; }, index: React.Key | null | undefined) => {
-        const sectionData = data.sections[view.section];
+  const actionMap: { [key: string]: () => void } = {
+    entry: () => {
+      setTimeout(entry, 100);
+      setTimeout(() => {
+        setView("active");
+      }, 300);
+    },
+    maximiseArt: () => setTimeout(() => setView("maximised"), 300),
+  };
 
-        // Check if the section has any buttons
-        const hasButtons = Array.isArray(sectionData.buttons) && sectionData.buttons.length > 0;
-
-        return (
-        <AnimatedPanel key={index} toggleable={view.toggleable} expanded={view.expanded} title={sectionData.title}>
-            <Text dangerouslySetInnerHTML={{ __html: sectionData.text }} />
-
-            {/* Render buttons if they exist */}
-            {hasButtons && sectionData.buttons.map((button: { activationKey: string; url: string; action: string | number; text: string; }, buttonIndex: number | undefined) => (
-            <ActionButton
-                key={buttonIndex}
-                index={buttonIndex}
-                activationKey={button.activationKey}
-                onActivate={button.url ? urlActionMap[button.action](button.url) : actionMap[button.action]}
-            >
-                {button.text}
-            </ActionButton>
-            ))}
-        </AnimatedPanel>
-        );
-    };
-  
-    const urlActionMap: { [key: string]: (url: string) => (() => void) } = {
-        visit: (url: string) => () => visit(url, 300),
-      };
-      
-      const actionMap: { [key: string]: () => void } = {
-        entry: () => {
-          setTimeout(entry, 100);
-          setTimeout(() => {
-            setView("active");
-          }, 300);
-        },
-        maximiseArt: () => setTimeout(() => setView("maximised"), 300),
-      };
-      
-      // const generateButtons = (buttons: { activationKey: string; action: string; url?: string; text: string; }[]) =>
-      //   buttons.map((button, index) => (
-      //     <ActionButton
-      //       key={index}
-      //       index={index}
-      //       activationKey={button.activationKey}
-      //       onActivate={button.url ? urlActionMap[button.action](button.url) : actionMap[button.action]}
-      //     >
-      //       {button.text}
-      //     </ActionButton>
-      //   ));
-                  
   return (
     <div className={styles.container}>
       <Head>
         <title>
-        {data.shared.title}
+          {data.shared.title}
         </title>
         {data.shared.meta.map((meta: { name: string | undefined; content: string | undefined; }, index: React.Key | null | undefined) => (
-        <meta
-          key={index}
-          name={meta.name}
-          content={meta.content}
-        />
+          <meta
+            key={index}
+            name={meta.name}
+            content={meta.content}
+          />
         ))}
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -359,13 +347,13 @@ const Home: NextPage = () => {
               <pointLight position={[30, 0, 0]} color="blue" intensity={10} />
               <pointLight position={[0, -30, 0]} color="pink" intensity={5} />
               <pointLight position={[0, 0, 30]} color="purple" intensity={5} />
-                <AnimatedGroup scale={scale.to(s => [s, s, s])}>
-                    <Ribbon id={1} color="#7b505c" />
-                    <Ribbon id={64} color="#E8AE3B" />
-                    <Ribbon id={256} color="#E8AE3B" />
-                    <Ribbon id={512} color="#E8AE3B" />
-                    <Ribbon id={128} color="#e4d6cf" />
-                </AnimatedGroup>
+              <AnimatedGroup scale={scale.to(s => [s, s, s])}>
+                <Ribbon id={1} color="#7b505c" />
+                <Ribbon id={64} color="#E8AE3B" />
+                <Ribbon id={256} color="#E8AE3B" />
+                <Ribbon id={512} color="#E8AE3B" />
+                <Ribbon id={128} color="#e4d6cf" />
+              </AnimatedGroup>
               <Effects />
             </Suspense>
             <OrbitControls
@@ -378,69 +366,41 @@ const Home: NextPage = () => {
 
       <FooterTag>
         <Text>
-        {data.shared.footer.name}<br />
-        {data.shared.footer.abn}
+          {data.shared.footer.name}<br />
+          {data.shared.footer.abn}
         </Text>
       </FooterTag>
       <HudGrid className="hud">
-        {/* {view === "maximised" && (
+        {view === "maximised" && (
           <Maximised layout={{ "@initial": "small", "@bp2": "large" }}>
-            <Padding layout="md">
+            <Reacteroids />
+            <Padding layout="md" style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 1 }}>
               <PanelList>
-                <AnimatedPanel
-                  title="Go Back"
-                  actions={[
-                    <ActionButton
-                      onActivate={() => {
-                        setTimeout(entry, 100);
-                        setTimeout(() => {
-                          setView("active");
-                        }, 300);
-                      }}
-                      index={1}
-                      key={1}
-                      activationKey="B"
-                    >
-                      back to site
-                    </ActionButton>,
-                  ]}
-                >
+                <AnimatedPanel title="Go Back" actions={[
+                  <ActionButton
+                    onActivate={() => {
+                      setTimeout(entry, 100);
+                      setTimeout(() => { setView("active") }, 300);
+                    }}
+                    index={1}
+                    key={1}
+                    activationKey="B">
+                    back to site
+                  </ActionButton>
+                ]}>
                   <Text>Use the mouse or touch to pan, zoom and rotate.</Text>
                 </AnimatedPanel>
               </PanelList>
             </Padding>
           </Maximised>
-        )} */}
-{view==="maximised"&&(
-    <Maximised layout={{ "@initial": "small", "@bp2": "large" }}>
-        <Reacteroids />
-        <Padding layout="md" style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 1 }}>
-            <PanelList>
-                <AnimatedPanel title="Go Back" actions={[
-                    <ActionButton
-                        onActivate={() => {
-                            setTimeout(entry, 100);
-                            setTimeout(() => { setView("active") }, 300);
-                        }}
-                        index={1}
-                        key={1}
-                        activationKey="B">
-                        back to site
-                    </ActionButton>
-                ]}>
-                    <Text>Use the mouse or touch to pan, zoom and rotate.</Text>
-                </AnimatedPanel>
-            </PanelList>
-        </Padding>
-    </Maximised>
-)}
+        )}
         {view === "initial" && (
           <Greetings size={{ "@initial": "small", "@bp1": "regular" }}>
             <Padding layout="md">
               <PanelList>
                 <Panel title="BF.WTF">
                   <Text>{data.initial.headline}</Text>
-                  <Text><br/>{data.initial.byline}</Text>
+                  <Text><br />{data.initial.byline}</Text>
                   <br />
                   <ActionButton
                     onActivate={() => {
@@ -462,11 +422,6 @@ const Home: NextPage = () => {
         )}
         {view === "active" && (
           <>
-            <Visibility visiblity={{ "@initial": "hidden", "@bp4": "visible" }}>
-              {/* <PlayWithArtPrompt>
-                <Text>click + drag + scroll</Text>
-              </PlayWithArtPrompt> */}
-            </Visibility>
             <Overlay
               layout={{
                 "@initial": "sm",
@@ -494,7 +449,7 @@ const Home: NextPage = () => {
             className="source-panel"
           >
             <PanelList>
-            {data.views.md.right.map((view: { section: string | number; toggleable: boolean | undefined; expanded: boolean | undefined; }, index: React.Key | null | undefined) => renderSection(view, index))}              
+              {data.views.md.right.map((view: { section: string | number; toggleable: boolean | undefined; expanded: boolean | undefined; }, index: React.Key | null | undefined) => renderSection(view, index))}
             </PanelList>
           </OverlayRight>
         )}
