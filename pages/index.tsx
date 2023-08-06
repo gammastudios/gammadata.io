@@ -1,4 +1,5 @@
 import { data } from '../content/content';
+import { Reacteroids } from '../components/Reacteroids/src/index.js';
 import { animated, useSpring } from "@react-spring/three";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
@@ -320,17 +321,17 @@ const Home: NextPage = () => {
         maximiseArt: () => setTimeout(() => setView("maximised"), 300),
       };
       
-      const generateButtons = (buttons: { activationKey: string; action: string; url?: string; text: string; }[]) =>
-        buttons.map((button, index) => (
-          <ActionButton
-            key={index}
-            index={index}
-            activationKey={button.activationKey}
-            onActivate={button.url ? urlActionMap[button.action](button.url) : actionMap[button.action]}
-          >
-            {button.text}
-          </ActionButton>
-        ));
+      // const generateButtons = (buttons: { activationKey: string; action: string; url?: string; text: string; }[]) =>
+      //   buttons.map((button, index) => (
+      //     <ActionButton
+      //       key={index}
+      //       index={index}
+      //       activationKey={button.activationKey}
+      //       onActivate={button.url ? urlActionMap[button.action](button.url) : actionMap[button.action]}
+      //     >
+      //       {button.text}
+      //     </ActionButton>
+      //   ));
                   
   return (
     <div className={styles.container}>
@@ -382,7 +383,7 @@ const Home: NextPage = () => {
         </Text>
       </FooterTag>
       <HudGrid className="hud">
-        {view === "maximised" && (
+        {/* {view === "maximised" && (
           <Maximised layout={{ "@initial": "small", "@bp2": "large" }}>
             <Padding layout="md">
               <PanelList>
@@ -409,7 +410,30 @@ const Home: NextPage = () => {
               </PanelList>
             </Padding>
           </Maximised>
-        )}
+        )} */}
+{view==="maximised"&&(
+    <Maximised layout={{ "@initial": "small", "@bp2": "large" }}>
+        <Reacteroids />
+        <Padding layout="md" style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 1 }}>
+            <PanelList>
+                <AnimatedPanel title="Go Back" actions={[
+                    <ActionButton
+                        onActivate={() => {
+                            setTimeout(entry, 100);
+                            setTimeout(() => { setView("active") }, 300);
+                        }}
+                        index={1}
+                        key={1}
+                        activationKey="B">
+                        back to site
+                    </ActionButton>
+                ]}>
+                    <Text>Use the mouse or touch to pan, zoom and rotate.</Text>
+                </AnimatedPanel>
+            </PanelList>
+        </Padding>
+    </Maximised>
+)}
         {view === "initial" && (
           <Greetings size={{ "@initial": "small", "@bp1": "regular" }}>
             <Padding layout="md">
