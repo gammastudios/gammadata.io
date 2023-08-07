@@ -156,7 +156,8 @@ export const data: Record<string, any> = {
       <a href="https://www.linkedin.com/in/simoncolmer/" target="_blank">Simon Colmer</a>, Lead Consultant<br/><br/>
       <a href="https://www.linkedin.com/in/christopherottinger/" target="_blank">Christopher Ottinger</a>, Lead Consultant<br/><br/>
       <a href="https://www.linkedin.com/in/russelldiery/" target="_blank">Russell Diery</a>, Lead Consultant<br/><br/>
-      <a href="https://www.linkedin.com/in/kieranrimmer/" target="_blank">Kieran Rimmer</a>, Lead Consultant
+      <a href="https://www.linkedin.com/in/kieranrimmer/" target="_blank">Kieran Rimmer</a>, Lead Consultant<br/><br/>
+      Alex Jarosz, Engineer/Consultant
       `
     },
     source: {
