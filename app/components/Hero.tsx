@@ -5,9 +5,9 @@ import { Terminal } from "lucide-react"
 
 export default function Hero() {
   return (
-    <div className="relative isolate overflow-hidden bg-black min-h-[80vh] flex items-center">
-      <div className="absolute inset-0 bg-grid-white/5 bg-grid-pattern" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/0" />
+    <div className="relative isolate overflow-hidden bg-white dark:bg-black min-h-[80vh] flex items-center">
+      <div className="absolute inset-0 bg-white-grid-pattern dark:bg-grid-pattern" />
+      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/0 dark:from-black dark:via-black/80 dark:to-black/0" />
 
       <div className="mx-auto max-w-7xl px-6 py-20 lg:flex lg:items-center lg:gap-x-10 lg:px-8 relative z-10">
         <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
@@ -22,7 +22,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            className="p-6 border border-primary/20 bg-black/60 backdrop-blur-sm rounded-lg max-w-xl mx-auto lg:mx-0"
+            className="p-6 border border-primary/20 bg-gray-900/90 backdrop-blur-sm rounded-lg max-w-xl mx-auto lg:mx-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -55,7 +55,7 @@ export default function Hero() {
             <a href="#services" className="data-button">
               Our Services
             </a>
-            <a href="#contact" className="text-sm font-semibold leading-6 text-foreground">
+            <a href="#contact" className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-200">
               Contact Us <span aria-hidden="true">→</span>
             </a>
           </motion.div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
 import { MoonIcon, SunIcon } from "lucide-react"
@@ -10,6 +11,7 @@ export default function Header() {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
+  // Only show the theme toggle once the component has mounted to avoid hydration mismatch
   useEffect(() => setMounted(true), [])
 
   return (
@@ -24,6 +26,13 @@ export default function Header() {
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Gamma Data</span>
             <div className="flex items-center">
+              <Image 
+                src="/favicon-32x32.png" 
+                alt="Gamma Data Logo" 
+                width={24} 
+                height={24} 
+                className="mr-2" 
+              />
               <span className="text-xl font-bold text-primary">Gamma Data</span>
             </div>
           </Link>
@@ -64,7 +73,8 @@ export default function Header() {
           {mounted && (
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-full p-2 bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+              className="dark-mode-toggle"
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
               {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
             </button>

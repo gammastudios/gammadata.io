@@ -3,7 +3,7 @@ import { Github, Linkedin, Twitter } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="bg-black border-t border-border/40">
+    <footer className="bg-muted/50 dark:bg-black border-t border-border/40">
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-12 sm:py-16 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
           <div className="mb-6 md:mb-0">
@@ -16,15 +16,15 @@ export default function Footer() {
           </div>
 
           <div className="flex space-x-6">
-            <a href="#" className="text-muted-foreground hover:text-primary">
+            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
               <Github className="h-5 w-5" />
               <span className="sr-only">GitHub</span>
             </a>
-            <a href="#" className="text-muted-foreground hover:text-primary">
+            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
               <Linkedin className="h-5 w-5" />
               <span className="sr-only">LinkedIn</span>
             </a>
-            <a href="#" className="text-muted-foreground hover:text-primary">
+            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
               <Twitter className="h-5 w-5" />
               <span className="sr-only">Twitter</span>
             </a>
@@ -33,13 +33,13 @@ export default function Footer() {
 
         <div className="mt-8 border-t border-border/40 pt-8 md:flex md:items-center md:justify-between">
           <div className="flex space-x-6 md:order-2">
-            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
+            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
+            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Terms of Service
             </Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
+            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Cookie Policy
             </Link>
           </div>

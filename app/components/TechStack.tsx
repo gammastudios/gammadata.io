@@ -6,62 +6,62 @@ import Image from "next/image"
 const technologies = [
   {
     name: "Apache Spark",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/apache-spark.svg",
     category: "Data Processing",
   },
   {
     name: "Apache Kafka",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/apache-kafka.svg",
     category: "Streaming",
   },
   {
     name: "Kubernetes",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/kubernetes.svg",
     category: "Orchestration",
   },
   {
     name: "Airflow",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/airflow.svg",
     category: "Workflow",
   },
   {
     name: "Snowflake",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/snowflake.svg",
     category: "Data Warehouse",
   },
   {
     name: "dbt",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/dbt.svg",
     category: "Transformation",
   },
   {
     name: "TensorFlow",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/tensorflow.svg",
     category: "Machine Learning",
   },
   {
     name: "PyTorch",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/pytorch.svg",
     category: "Machine Learning",
   },
   {
     name: "AWS",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/aws.svg",
     category: "Cloud",
   },
   {
     name: "Google Cloud",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/google-cloud.svg",
     category: "Cloud",
   },
   {
     name: "Azure",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/azure.svg",
     category: "Cloud",
   },
   {
     name: "Databricks",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/icons/databricks.svg",
     category: "Unified Analytics",
   },
 ]
