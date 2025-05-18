@@ -10,7 +10,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Gamma Data | Enterprise Data Platform Specialists",
   description: "Data professionals delivering modern open source data platforms for large enterprises",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({

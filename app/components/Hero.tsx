@@ -34,12 +34,13 @@ export default function Hero() {
             </div>
             <div className="font-mono">
               <p className="text-primary mb-2">Welcome to Gamma Data.</p>
-              <p className="text-gray-400 mb-4">Data. ML. Engineering. Experts.</p>
-              <div className="flex items-center">
-                <span className="text-primary mr-2">$</span>
+              <p className="text-gray-400 mb-4">Data. Delivered to Production</p>
+              <div className="flex items-start">
+                <span className="text-primary mr-2 mt-1">$</span>
                 <span className="text-gray-300">
                   We are data professionals, delivering data platforms for large enterprises on the modern open source
                   data stack.
+                  <span className="terminal-cursor align-middle ml-1"></span>
                 </span>
               </div>
             </div>
