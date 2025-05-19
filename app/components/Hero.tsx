@@ -36,7 +36,7 @@ export default function Hero() {
               <p className="text-primary mb-2">Welcome to Gamma Data.</p>
               <p className="text-gray-400 mb-4">Data. Delivered to Production</p>
               <div className="flex items-start">
-                <span className="text-primary mr-2 mt-1">$</span>
+                <span className="text-primary mr-2">$</span>
                 <span className="text-gray-300">
                   We are data professionals, delivering data platforms for large enterprises on the modern open source
                   data stack.
