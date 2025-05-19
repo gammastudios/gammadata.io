@@ -1,34 +1,93 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Gamma Data Website
 
-## Getting Started
+## Overview
+This repository contains the source code for the Gamma Data website (gammadata.io). Gamma Data is a company specializing in enterprise data platform solutions using modern open source technologies.
 
-First, run the development server:
+## About Gamma Data
+Gamma Data is a team of data professionals focused on delivering data platforms for large enterprises on the modern open source data stack. With extensive experience in enterprise data solutions, Gamma Data offers various services including:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- Data Platform Engineering
+- Data Analytics & Machine Learning
+- Data Engineering
+- Cloud Data Infrastructure
+- Data Governance
+- Data Strategy Consulting
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The company has served 50+ enterprise clients, delivered 200+ data projects, and boasts 15+ years of experience in the field, providing 24/7 enterprise support.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
+This website is built using the following technologies:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- **Frontend Framework**: Next.js 15.2.4
+- **UI Library**: React 19
+- **Styling**: 
+  - Tailwind CSS
+  - CSS Modules
+  - Framer Motion for animations
+- **UI Components**: 
+  - Radix UI component library
+  - Lucide React for icons
+- **Theme Support**: next-themes for dark/light mode
+- **Development Tools**:
+  - TypeScript
+  - ESLint
+  - PostCSS
+  - pnpm package manager
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Website Structure
+The website follows a modern, component-based architecture:
 
-## Learn More
+- **Layout**: Main layout with header and footer
+- **Home Page**: Features multiple sections including:
+  - Hero Section
+  - Services Overview
+  - Tech Stack Showcase
+  - Case Studies
+  - About Us
+  - Contact Form
+- **Blog Section**: For content publishing
 
-To learn more about Next.js, take a look at the following resources:
+## Color Scheme
+The website uses a professional color palette with a focus on dark mode:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Primary Color**: Purple/Violet hue (263.4 70% 50.4%)
+- **Background**: Dark blue-black in dark mode (222.2 84% 4.9%)
+- **Text**: Light gray/white for readability on dark backgrounds
+- **Accents**: Subtle gradients and border highlights
+- **Interactive Elements**: Primary purple with hover states
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The color scheme creates a modern, tech-focused aesthetic that represents Gamma Data's position as data platform specialists. The dark theme is set as the default to create a sleek, professional appearance that emphasizes code and technical elements.
 
-## Deploy on Vercel
+## Design Features
+- Terminal-like UI elements to represent the technical nature of the company
+- Grid background pattern with subtle gradients
+- Responsive design for all screen sizes
+- Animated components using Framer Motion
+- Code-inspired visual elements reflecting the data engineering focus
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Getting Started
+1. Clone the repository
+2. Install dependencies
+   ```
+   pnpm install
+   ```
+3. Run the development server
+   ```
+   pnpm dev
+   ```
+4. Build for production
+   ```
+   pnpm build
+   ```
+
+### Project Structure
+- `/app`: Main application code, pages, and components
+- `/components`: Reusable UI components
+- `/styles`: Global styles and theme configuration
+- `/lib`: Utility functions and shared code
+- `/public`: Static assets
+
+## License
+All rights reserved. This codebase is proprietary to Gamma Data. 
