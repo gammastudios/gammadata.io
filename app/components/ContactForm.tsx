@@ -33,15 +33,36 @@ export default function ContactForm() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log("Form submitted with values:", values)
     setIsSubmitting(true)
-    // Simulate API call
-    setTimeout(() => {
-      console.log(values)
-      setIsSubmitting(false)
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        console.error("API error:", data)
+        alert(`Error: ${data.error || "Failed to send message"}`)
+        return
+      }
+
+      console.log("Email sent successfully:", data)
       form.reset()
       alert("Thank you for your message. We'll get back to you soon!")
-    }, 2000)
+    } catch (error) {
+      console.error("Failed to send message:", error)
+      alert("Failed to send message. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -66,7 +87,13 @@ export default function ContactForm() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form
+              onSubmit={form.handleSubmit(
+                onSubmit,
+                (errors) => console.log("Form validation errors:", errors)
+              )}
+              className="space-y-6"
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
                   control={form.control}
